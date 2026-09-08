@@ -215,7 +215,7 @@
       margin-bottom: 15px;
     }
 
-    /* Đĩa nhạc xoay dễ thương ở góc */
+    /* Nút đĩa nhạc góc phải màn hình */
     .music-disc {
       position: fixed;
       top: 15px;
@@ -227,7 +227,7 @@
       cursor: pointer;
       z-index: 100;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       font-size: 18px;
@@ -240,19 +240,29 @@
     @keyframes spin {
       100% { transform: rotate(360deg); }
     }
+
+    /* Container ẩn cho YouTube Player */
+    #yt-player-container {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Đĩa nhạc góc phải màn hình -->
+  <!-- Đĩa nhạc xoay ở góc -->
   <div class="music-disc" id="musicBtn" onclick="toggleMusic()">🎵</div>
 
-  <!-- Nhạc nền Bạc Phận Remix -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="https://files.catbox.moe/8y6v23.mp3" type="audio/mpeg">
-  </audio>
+  <!-- YouTube Audio Player Embed -->
+  <div id="yt-player-container">
+    <div id="player"></div>
+  </div>
 
-  <!-- Các biểu tượng trang trí bay lơ lửng -->
+  <!-- Biểu tượng trang trí Xử Nữ bay lơ lửng -->
   <div class="floating-icon icon-1">♍</div>
   <div class="floating-icon icon-2">✨</div>
   <div class="floating-icon icon-3">🌸</div>
@@ -303,25 +313,46 @@
 
   </div>
 
+  <!-- Tải API YouTube iFrame -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
   <script>
-    const audio = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicBtn');
+    let player;
     let isPlaying = false;
 
+    // Khởi tạo YouTube Player
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'RuAeYbelY60', // ID bài Bạc Phận Remix
+        playerVars: {
+          'autoplay': 0,
+          'controls': 0,
+          'loop': 1,
+          'playlist': 'RuAeYbelY60'
+        }
+      });
+    }
+
     function playMusic() {
-      audio.play().then(() => {
+      if (player && player.playVideo) {
+        player.playVideo();
         isPlaying = true;
+        const musicBtn = document.getElementById('musicBtn');
+        musicBtn.style.display = 'flex';
         musicBtn.classList.add('music-spin');
-      }).catch(err => console.log("Cần tương tác để phát nhạc"));
+      }
     }
 
     function toggleMusic() {
+      const musicBtn = document.getElementById('musicBtn');
       if (isPlaying) {
-        audio.pause();
+        player.pauseVideo();
         musicBtn.classList.remove('music-spin');
         isPlaying = false;
       } else {
-        audio.play();
+        player.playVideo();
         musicBtn.classList.add('music-spin');
         isPlaying = true;
       }
@@ -351,7 +382,6 @@
     let currentQuestionIndex = 0;
 
     function startChallenge() {
-      playMusic(); // Tự động bật nhạc khi bấm nút
       nextScreen('screen-quiz');
     }
 
@@ -428,6 +458,7 @@
     function openGift() {
       document.querySelector('.gift-box').style.display = 'none';
       document.getElementById('letter').style.display = 'block';
+      playMusic(); // Phát nhạc Bạc Phận Remix ngay khi mở thiệp
       fireworksLoop();
     }
   </script>
