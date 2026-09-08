@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KIỂM TRA DANH TÍNH HMY! 🎉</title>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Great+Vibes&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   
   <style>
@@ -22,7 +22,7 @@
       justify-content: center;
       align-items: center;
       padding: 15px;
-      overflow: hidden;
+      overflow-x: hidden;
       position: relative;
     }
 
@@ -54,7 +54,7 @@
       padding: 35px 25px;
       border-radius: 28px;
       box-shadow: 0 15px 35px rgba(230, 150, 170, 0.25);
-      max-width: 460px;
+      max-width: 480px;
       width: 100%;
       text-align: center;
       position: relative;
@@ -187,6 +187,7 @@
       100% { transform: translateY(-12px) scale(1.05); }
     }
 
+    /* Bức thư chúc mừng nghệ thuật */
     .letter {
       display: none;
       background: #fff8f9;
@@ -198,12 +199,22 @@
       box-shadow: 0 8px 20px rgba(255, 179, 193, 0.2);
     }
 
-    .letter h3 {
-      font-family: 'Comfortaa', cursive;
+    /* Tiêu đề hoa văn nghệ thuật */
+    .letter-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 38px;
       color: #d8698b;
       text-align: center;
-      margin-bottom: 15px;
-      font-size: 17px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+      line-height: 1.2;
+    }
+
+    .letter p {
+      font-size: 15px;
+      color: #55444c;
+      margin-bottom: 14px;
+      line-height: 1.6;
     }
 
     .vip-photo {
@@ -241,7 +252,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Container ẩn cho YouTube Player */
     #yt-player-container {
       position: absolute;
       width: 1px;
@@ -300,14 +310,14 @@
       <div class="gift-box" onclick="openGift()">🎁</div>
 
       <div id="letter" class="letter">
-        <h3>💖 HAPPY BIRTHDAY HMY 💖</h3>
+        <div class="letter-title">Happy Birthday</div>
         <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=500" alt="VIP" class="vip-photo">
-        <p>Chúc HMy tuổi mới:</p>
-        <p>💵 Tiền vô như nước, có RẤT RẤT NHIỀU TIỀN!</p>
-        <p>✨ Luôn tươi trẻ, xinh đẹp và ngập tràn niềm vui!</p>
-        <p>💖 Đạt được mọi mục tiêu và luôn hạnh phúc nhé!</p>
-        <br>
-        <p style="text-align: right; color: #d8698b; font-weight: 800;">- HAPPY BIRTHDAY HMY! 💕</p>
+        
+        <p>🎂 Chúc Hà My tuổi mới tốt nghiệp thủ khoa, ra trường đúng hạn, tiền nhiều hơn số lần ngủ đủ giấc.</p>
+        <p>💖 Chúc sớm có em ngiu xinh gái và nhiều tiền, không cần nhiều tình.</p>
+        <p>🥂 Chúc cho mọi điều Hà My mong muốn đều thành hiện thực, còn những gì không thành hiện thực thì đơn giản là vì nó chưa đủ đẳng cấp để xứng với Hà My.</p>
+        
+        <p style="text-align: right; color: #d8698b; font-weight: 800; margin-top: 15px; margin-bottom: 0;">- HAPPY BIRTHDAY HÀ MY! 💕</p>
       </div>
     </div>
 
@@ -320,12 +330,11 @@
     let player;
     let isPlaying = false;
 
-    // Khởi tạo YouTube Player
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('player', {
         height: '0',
         width: '0',
-        videoId: 'RuAeYbelY60', // ID bài Bạc Phận Remix
+        videoId: 'RuAeYbelY60',
         playerVars: {
           'autoplay': 0,
           'controls': 0,
@@ -458,7 +467,7 @@
     function openGift() {
       document.querySelector('.gift-box').style.display = 'none';
       document.getElementById('letter').style.display = 'block';
-      playMusic(); // Phát nhạc Bạc Phận Remix ngay khi mở thiệp
+      playMusic();
       fireworksLoop();
     }
   </script>
